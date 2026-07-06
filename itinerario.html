@@ -1,0 +1,702 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Viaje Canadá</title>
+
+<style>
+
+/* ==========================
+   RESET
+========================== */
+:root{
+    --bg:#0e1624;
+    --bg-2:#101a2a;
+    --gold:#d9a63f;
+    --gold-2:#e0b35c;
+    --text:#f3d28a;
+    --white:#ffffff;
+    --border:rgba(217,166,63,.85);
+    --shadow:0 18px 40px rgba(0,0,0,.25);
+}
+
+*{
+    box-sizing:border-box;
+}
+
+html,body{
+    margin:0;
+    padding:0;
+    font-family: Arial, Helvetica, sans-serif;
+    background:var(--bg);
+    color:var(--text);
+}
+
+a{
+    color:inherit;
+    text-decoration:none;
+}
+
+
+
+
+/* Colores del texto */
+
+
+
+.header{
+    width:100%;
+    background:#fff;
+     background:linear-gradient(180deg,#0f1726 0%,#10192a 100%);
+    position:sticky; /* opcional */
+    top:0;
+    z-index:1000;
+}
+
+.container{
+    max-width:1200px;
+    margin:auto;
+    padding:18px 20px;
+}
+
+.back-link{
+    color:#d9a63f;
+    text-decoration:none;
+    font-size:1rem;
+    font-weight:600;
+    transition:.3s;
+}
+
+.back-link:hover{
+    color:#e91e3a;
+}
+
+/* ==========================
+   HERO
+========================== */
+
+.hero{
+    height:60vh;
+    min-height:400px;
+    background:url('imagenes/caption.jpg') center center/cover no-repeat;
+    position:relative;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+
+.hero::before{
+    content:"";
+    position:absolute;
+    inset:0;
+    background:rgba(0,0,0,.35);
+}
+
+.hero-content{
+    position:relative;
+    z-index:2;
+    text-align:center;
+    color:white;
+    padding:20px;
+}
+
+.hero-content h1{
+    font-size:clamp(2.5rem,6vw,5rem);
+    text-shadow:0 4px 15px rgba(0,0,0,.4);
+}
+
+.hero-content p {
+  color: white;
+  font-size: 1.2rem;
+  margin-top: 10px;
+  opacity: 0.9;
+}
+
+/* ==========================
+   PAQUETE
+========================== */
+
+.package{
+    max-width:1200px;
+    margin:auto;
+    padding:60px 20px;
+}
+
+.package h2{
+    font-size:2.3rem;
+    margin-bottom:35px;
+}
+
+.package-list{
+    list-style:none;
+}
+
+.package-list li{
+    display:flex;
+    align-items:flex-start;
+    gap:12px;
+    margin-bottom:18px;
+    font-size:1.1rem;
+}
+
+.check{
+    color:#e91e3a;
+    font-weight:bold;
+    font-size:1.3rem;
+    flex-shrink:0;
+}
+
+/* ==========================
+   ITINERARIO
+========================== */
+
+.itinerario{
+    max-width:1200px;
+    margin:40px auto 80px;
+    padding:0 20px;
+}
+
+.itinerario h2{
+    font-size:2.3rem;
+    margin-bottom:30px;
+}
+
+.accordion{
+   display:flex;
+    flex-direction:column;
+    gap:18px;
+}
+
+.day{
+    border:none;
+}
+
+.day-header{
+     width:100%;
+    border:1px solid var(--border);
+    border-radius:18px;      /* Esquinas redondeadas */
+    background:linear-gradient(
+        180deg,
+        rgba(16,26,42,.95) 0%,
+        rgba(14,22,36,.98) 100%
+    );
+    box-shadow:var(--shadow);
+    cursor:pointer;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:20px;
+    padding:22px 28px;
+    text-align:left;
+}
+
+.day-left{
+    flex:1;
+}
+
+.day-title{
+    font-size:1.4rem;
+    font-weight:600;
+}
+
+.day-date{
+    margin-left:15px;
+    font-size:1rem;
+}
+
+.day-name{
+    display:flex;
+    align-items:center;
+    gap:15px;
+    text-transform:uppercase;
+    font-size:1rem;
+    text-align:right;
+}
+
+.icon{
+    width:32px;
+    height:32px;
+    border:2px solid #e91e3a;
+    border-radius:50%;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    color:#e91e3a;
+    font-size:1.4rem;
+    font-weight:bold;
+    flex-shrink:0;
+}
+
+.day .icon::before{
+    content:"+";
+}
+
+.day.open .icon::before{
+    content:"−";
+}
+
+.day-content{
+     display:none;
+    margin-top:8px;
+    border:1px solid var(--border);
+    border-radius:18px;
+    padding:25px;
+    background:linear-gradient(
+        180deg,
+        rgba(16,26,42,.95) 0%,
+        rgba(14,22,36,.98) 100%
+    );
+}
+
+.day.open .day-content{
+    display:block;
+}
+
+.day-img{
+    width:100%;
+    height:450px;
+    object-fit:cover;
+    border-radius:8px;
+    margin-bottom:20px;
+}
+
+.day-content p{
+    margin-bottom:15px;
+}
+
+.day-content ul{
+    padding-left:20px;
+}
+
+.day-content li{
+    margin-bottom:10px;
+}
+
+/* ==========================
+   MOBILE
+========================== */
+
+@media(max-width:768px){
+
+    .hero{
+        height:45vh;
+        min-height:300px;
+    }
+
+    .hero-content h1{
+        font-size:2rem;
+    }
+
+    .package{
+        padding:40px 15px;
+    }
+
+    .package h2,
+    .itinerario h2{
+        font-size:1.8rem;
+    }
+
+    .package-list li{
+        font-size:.95rem;
+    }
+
+    .day-header{
+        flex-direction:column;
+        align-items:flex-start;
+    }
+
+    .day-left{
+        width:100%;
+    }
+
+    .day-title{
+        display:block;
+        font-size:1.5rem;
+    }
+
+    .day-date{
+        display:block;
+        margin-left:0;
+        margin-top:5px;
+    }
+
+    .day-name{
+        width:100%;
+        justify-content:space-between;
+        text-align:left;
+        font-size:.9rem;
+    }
+
+    .day-img{
+        height:220px;
+    }
+}
+
+.container,
+.package,
+.itinerario{
+  background:transparent;
+}
+
+
+
+/* Fondos de tarjetas / bloques */
+.day-header,
+.day-content,
+.package-box,
+.card,
+.section-box{
+  background:linear-gradient(180deg, rgba(16,26,42,.95) 0%, rgba(14,22,36,.98) 100%);
+  border:1px solid var(--border);
+  box-shadow:var(--shadow);
+}
+
+/* Si quieres que ya no se vea blanco */
+.day-header{
+  background:linear-gradient(180deg, rgba(16,26,42,.95) 0%, rgba(14,22,36,.98) 100%);
+  color:var(--gold-2);
+}
+
+.day-content{
+  background:linear-gradient(180deg, rgba(16,26,42,.95) 0%, rgba(14,22,36,.98) 100%);
+}
+
+/* Iconos y detalles dorados */
+.icon,
+.mission-icon,
+.location-badge{
+  border-color:var(--gold);
+  color:var(--gold);
+}
+
+.location-badge{
+  background:var(--gold);
+  color:#1a1a1a;
+}
+
+
+</style>
+</head>
+<body>
+
+
+<header class="header">
+    <div class="container">
+        <a href="index.html" class="back-link">
+            ← Regresar a Home
+        </a>
+    </div>
+</header>
+
+<!-- HERO -->
+
+<section class="hero">
+    <div class="hero-content">
+        <h1>El viaje soñado</h1>
+        <p>Vive tus sueños en persona   </p>
+    </div>
+</section>
+
+<!-- INCLUIDO -->
+
+<section class="package">
+
+    <h2>Incluido en este paquete</h2>
+
+    <ul class="package-list">
+
+        <li><span class="check">✓</span>Transporte redondo desde el punto de encuentro (Kabah).</li>
+
+        <li><span class="check">✓</span>Visita a la Zona Arqueológica El Meco.</li>
+
+        <li><span class="check">✓</span>Desayuno en Carmen Enchiladería (Yaxchilán).</li>
+
+        <li><span class="check">✓</span>Entrada y recorrido en el Museo Maya de Cancún.</li>
+
+        <li><span class="check">✓</span>Visita al Cenote Ojo de Agua con tiempo libre para nadar.</li>
+
+        <li><span class="check">✓</span> Comida en Autóctona con taller interactivo (Yaxchilán).</li>
+
+        <li><span class="check">✓</span>Tiempo para tomar fotografías y recorrer cada sitio.</li>
+
+   
+
+    </ul>
+
+</section>
+
+<!-- ITINERARIO -->
+
+<section class="itinerario">
+
+    <h2>Itinerario</h2>
+
+    <div class="accordion">
+
+        <!-- DIA 1 -->
+
+        <div class="day">
+
+            <button class="day-header" onclick="toggleDay(this)">
+
+                <div class="day-left">
+                    <span class="day-title">Las tiendas Assis Av. kabah </span>
+                    
+                </div>
+
+                <div class="day-name">
+                    7:30 am - 7:50 am Punto de reunión
+                    <span class="icon"></span>
+                </div>
+
+            </button>
+
+            <div class="day-content">
+
+                <img src="imagenes/dia1.jpg" class="day-img">
+
+                <p>Como punto de inicio y recolección de nuestros viajeros, se les solicita estar en el lugar indicado 15 minutos de anticipación.</p>
+
+               
+
+
+            </div>
+
+        </div>
+
+        <!-- DIA 2 -->
+
+        <div class="day">
+
+            <button class="day-header" onclick="toggleDay(this)">
+
+                <div class="day-left">
+                    <span class="day-title">Llegada a zona arquelogica ”el meco” </span>
+                    
+                </div>
+
+                <div class="day-name">
+                    7:50 am - 9:00 am
+                    <span class="icon"></span>
+                </div>
+
+            </button>
+
+            <div class="day-content">
+
+                <img src="imagenes/dia2.jpg" class="day-img">
+
+                <p>Como primer punto de visita recorreremos la zona arqueologica del meco ubicado en la carretera Puerto Juarez, López Portillo. En donde los turistas podran reccorr y saber mas acerca de este increible yacimiento maya.</p>
+
+                
+
+            </div>
+
+        </div>
+
+    </div>
+
+     <h2></h2>
+
+    <div class="accordion">
+
+        <!-- DIA 3 -->
+
+        <div class="day">
+
+            <button class="day-header" onclick="toggleDay(this)">
+
+                <div class="day-left">
+                    <span class="day-title">Desayuno en “Carmen enchiladeria”  </span>
+                    
+                </div>
+
+                <div class="day-name">
+                    9:25 AM - 10:40 AM
+                    <span class="icon"></span>
+                </div>
+
+            </button>
+
+            <div class="day-content">
+
+                <img src="imagenes/dia3.jpg" class="day-img">
+
+                <p>Como primera parada gastronomica Carmen enchiladeria los recibira con la calidez que los identifica disfrutando y consintiendo a su paladar con deliciosos antojitos tipicos veracruzanos; Ete ubicado en la Av. Yaxchilan.</p>
+
+               
+
+
+            </div>
+
+        </div>
+
+        <!-- DIA 4 -->
+
+        <div class="day">
+
+            <button class="day-header" onclick="toggleDay(this)">
+
+                <div class="day-left">
+                    <span class="day-title">Visita al Museo Maya de Cancún</span>
+                    
+                </div>
+
+                <div class="day-name">
+                    11: 10 AM - 12:30 PM
+                    <span class="icon"></span>
+                </div>
+
+            </button>
+
+            <div class="day-content">
+
+                <img src="imagenes/dia4.jpg" class="day-img">
+
+                <p>Ubicado en el kilómetro 16.5 de la  Zona Hotelera de Cancún los turistas podran disfrutar de un recorrido guiado dentro del museo maya, casa de las grandes exibiciones de la culrura, dandoles un taller interactivo y educativo reccorriendo la zona arqueologica de San Miguelito.</p>
+
+             
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <h2></h2>
+
+    <div class="accordion">
+
+        <!-- DIA 5 -->
+
+        <div class="day">
+
+            <button class="day-header" onclick="toggleDay(this)">
+
+                <div class="day-left">
+                    <span class="day-title">Cenote Ich Ha “Ojo de Agua”  </span>
+                    
+                </div>
+
+                <div class="day-name">
+                    1:30 PM - 3:40 PM
+                    <span class="icon"></span>
+                </div>
+
+            </button>
+
+            <div class="day-content">
+
+                <img src="imagenes/dia5.jpg" class="day-img">
+
+                <p>Ubicado en la ruta de los cenotes, el cenote Ich Ha mayormente conocido como cenote ojo de agua será el lugar en donde los turistas podran disfrutar de las increibles aguas cristalinas de nuestro cenote contando con zonas de salto y tirolesas para que tengan una de las mejores experiencias acuaticas.</p>
+
+               
+
+
+            </div>
+
+        </div>
+
+        <!-- DIA 6 -->
+
+        <div class="day">
+
+            <button class="day-header" onclick="toggleDay(this)">
+
+                <div class="day-left">
+                    <span class="day-title">Comida en el restaurante Autotocna.</span>
+                    
+                </div>
+
+                <div class="day-name">
+                    4:40 PM - 6:30 PM
+                    <span class="icon"></span>
+                </div>
+
+            </button>
+
+            <div class="day-content">
+
+                <img src="imagenes/dia6.jpg" class="day-img">
+
+                <p> Como segunda y ultima parada gastronomica para Kalubú tours es muy importante el bienestar y disfrute de nuestros viajeros, por lo que les presenta el restaurante Autotocna ubicado en la Av. Yaxchilan.
+Nuestros turistas podran disfrutar de las comidas tipicas de nuestra reguión, sumergiendose en la atmosfera y calidez de los platillos yucatecos  llenos de sabor como de historia, siendo ahi mismo un taller de leyendas de nuestra región.
+</p>
+
+             
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <h2></h2>
+
+    <div class="accordion">
+
+        <!-- DIA 7 -->
+
+        <div class="day">
+
+            <button class="day-header" onclick="toggleDay(this)">
+
+                <div class="day-left">
+                    <span class="day-title">Punto de finalización.  </span>
+                    
+                </div>
+
+                <div class="day-name">
+                    6:45 PM
+                    <span class="icon"></span>
+                </div>
+
+            </button>
+
+            <div class="day-content">
+
+                
+
+                <p>Siendo el final de este increible tour nuestro transporte regresara al mismo punto de inicio ubicado en la Av. Kabah frente a tiendas ssis para decender a nuestros turistas dando concluido nuestro servicio.</p>
+
+               
+
+
+            </div>
+
+        </div>
+
+        
+
+    </div>
+
+</section>
+
+
+
+
+
+<script>
+
+function toggleDay(button){
+
+    const currentDay = button.parentElement;
+
+    document.querySelectorAll('.day').forEach(day => {
+
+        if(day !== currentDay){
+            day.classList.remove('open');
+        }
+
+    });
+
+    currentDay.classList.toggle('open');
+}
+
+</script>
+
+</body>
+</html>
